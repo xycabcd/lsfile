@@ -1,0 +1,25 @@
+#!/bin/zsh
+while true
+do
+    echo "\e[32m-----------------"
+    echo "'lsfile' File Lookup"
+    echo "$(pwd) \e[0m"
+    ls -AGF
+    echo -n ":"
+    read operation
+    if [[ ${operation} = //* ]];then
+        if [ ${operation} = "//q" ];then
+            echo "\e[32mRun 'cd $(pwd)' to go to the dir you just go to.\e[0m"
+            break
+        fi
+        if [[ ${operation} = //finder* ]];then
+            open -R "./${operation:9}"
+        else
+            echo "\e[32mCommand not support:'${operation:2}'\e[0m"
+        fi
+    else
+        cd $operation
+    fi
+    echo
+done
+
