@@ -8,17 +8,16 @@ do
     echo -n ":"
     read operation
     if [[ ${operation} = //* ]];then
-        if [ ${operation} = "//q" ];then
-            echo "\e[32mRun 'cd $(pwd)' to go to the dir you just go to.\e[0m"
+        if [ ${operation:2} = "q" ];then
             break
         fi
-        if [[ ${operation} = //finder* ]];then
+        if [[ ${operation:2} = finder* ]];then
             open -R "./${operation:9}"
         else
             echo "\e[32mCommand not support:'${operation:2}'\e[0m"
         fi
     else
-        cd $operation
+        cd ${operation}
     fi
     echo
 done
