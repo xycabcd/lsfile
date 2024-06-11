@@ -14,7 +14,9 @@ depends:
 macOS, "open" command
 /bin/zsh
 ls
-
+dirname
+basename
+realpath
 
 
 中文版
@@ -32,3 +34,6 @@ lsfile - 一个轻量 macOS 命令行目录查看/管理工具
 macOS, "open" command
 /bin/zsh
 ls
+dirname
+basename
+realpath
