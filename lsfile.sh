@@ -75,8 +75,8 @@ do
                         fi
                     fi
                 ;;
-                "sh "*)
-                    zsh -c "${command:3}"
+                "sh")
+                    zsh
                 ;;
                 *)
                     green "Command not support: '${command}'"
