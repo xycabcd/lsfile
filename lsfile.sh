@@ -7,7 +7,7 @@ else
 fi
 COPYIED_FILE=" "
 green() {
-    echo $2
+    echo "\e[32m$1\e[0m"
 }
 while true
 do
