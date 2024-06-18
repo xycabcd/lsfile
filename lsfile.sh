@@ -6,6 +6,8 @@ else
     cd $1
 fi
 COPYIED_FILE=" "
+GREEN="\e[32m"
+C_DEFAULT="\e[0m"
 green() {
     echo "\e[32m$1\e[0m"
 }
@@ -77,6 +79,41 @@ do
                 ;;
                 "sh "*)
                     zsh -c ${command:3}
+                ;;
+                "rm "*)
+                    echo -n "${GREEN}Will delete '${command:3}' permanently. Really want to remove it? [Y/any other key] ${C_DEFALUT}"
+                    read answer
+                    if [ ${answer} = "Y" ];then
+                        if [ -d ${command:3} ];then
+                            rm -r ${command:3}
+                        else
+                            rm ${command:3}
+                        fi
+                    fi
+                    unset answer
+                    break
+                ;;
+                "paste")
+                    if [ ${COPYIED_FILE} = " " ];then
+                        green "Clipboard is empty"
+                    else
+                        if [ -d ${COPYIED_FILE} ];then
+                            copy -R ${COPYIED_FILE} $(basename ${COPYIED_FILE})
+                        else
+                            copy ${COPYIED_FILE} $(basename ${COPYIED_FILE})
+                        fi
+                    fi
+                ;;
+                "paste "*)
+                    if [ ${COPYIED_FILE} = " " ];then
+                        green "Clipboard is empty"
+                    else
+                        if [ -d ${COPYIED_FILE} ];then
+                            copy -R ${COPYIED_FILE} ${command:6}
+                        else
+                            copy ${COPYIED_FILE} ${command:6}
+                        fi
+                    fi
                 ;;
                 *)
                     green "Command not support: '${command}'"
