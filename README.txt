@@ -11,7 +11,7 @@ create a symbol link to the path copied
 run shell without exit (beta)
 
 Please help me add these features if you can:
-make it show things like "less"
+make it show things like "less" (full screen)
 
 depends:
 macOS, "open" command
@@ -35,7 +35,7 @@ lsfile - 一个轻量 macOS 命令行目录查看/管理工具
 
 
 期望的功能：
-让其向“less”一样显示输出
+让其向“less”一样显示输出 (全屏模式)
 
 依赖：
 macOS, "open" command
