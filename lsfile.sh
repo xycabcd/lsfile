@@ -29,7 +29,7 @@ do
 
         if [[ ${operation} == "//"* ]];then
             command=${operation:2}
-            #operations area
+            #operation
             ###########################################
             case "${command}" in
                 "finder"*) 
