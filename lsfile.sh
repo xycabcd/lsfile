@@ -5,6 +5,7 @@ then
 else 
     cd $1
 fi
+echo "\e[?1049h"
 COPYIED_FILE=" "
 GREEN="\e[32m"
 C_DEFAULT="\e[0m"
@@ -24,6 +25,7 @@ do
         echo -n "\e[32m:\e[0m" 
         read operation
         if [ ${operation} = "//q" ] ;then
+            echo "\e[?1049l"
             exit
         fi
 
@@ -34,7 +36,7 @@ do
             case "${command}" in
                 "finder"*) 
                    #open in finder
-                    if [ ${command} = "finder"]
+                    if [ ${command} = "finder" ]
                     then
                         open ./
                     else 
@@ -126,5 +128,6 @@ do
                 break
             fi
         fi
+        clear
     done
 done
