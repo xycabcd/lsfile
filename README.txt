@@ -1,17 +1,14 @@
-English verison - 中文版在后面
+English verison
 
-lsfile - A light macOS command line folder look up/management tool
+lsfile - A light macOS command line file look up/management tool
 
 This project is for make look and change files in folders easier.
-Features :
-show what's in the folder (Of course)
+
+Extra Features :
 open in Finder
 copy a path
 create a symbol link to the path copied
 run shell without exiting (beta)
-
-Please help me add these features if you can:
-full screen like "less" and "nano"
 
 depends on:
 "open" command - open in Finder
