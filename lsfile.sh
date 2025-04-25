@@ -9,11 +9,12 @@ echo "\e[?1049h"
 COPYIED_FILE=" "
 GREEN="\e[32m"
 C_DEFAULT="\e[0m"
-green() {
+function green {
     echo "\e[32m$1\e[0m"
 }
 while true
-do
+do  
+    echo "\e[0m"
     echo "\e[32m-----------------"
     echo "'lsfile' File Lookup"
     echo "$(pwd)"
@@ -22,35 +23,43 @@ do
     echo
     while true
     do
-        echo -n "\e[32m:\e[0m" 
-        read operation
-        if [ ${operation} = "//q" ] ;then
+        echo -n "\e[32m" 
+        operation=""
+        while [ -z "${operation}" ]
+        do
+            echo -n ":"
+            read operation
+        done
+        if [ "${operation}" = "//q" ] ;then
             echo "\e[?1049l"
             exit
         fi
 
-        if [[ ${operation} == "//"* ]];then
-            command=${operation:2}
-            #operation
-            ###########################################
+        if [[ "${operation}" == "//"* ]];then
+            command="${operation:2}"
             case "${command}" in
                 "finder"*) 
                    #open in finder
-                    if [ ${command} = "finder" ]
+                    if [ "${command}" = "finder" ]
                     then
                         open ./
                     else 
-                        open -R ${command:6}
+                        open -R "${command:7}"
                     fi
                 ;;
                 "copy "*) 
                     #copy a path
-                    COPYIED_FILE=$(realpath ${command:5})
-                    break
+                    COPYIED_FILE="$(realpath "${command:5}")"
+                    break;
+                ;;
+                "copy")
+                    COPYIED_FILE="$(realpath ".")"
+                    break;
                 ;;
                 "clear_clipbd")
                     #clear clipboard
                     COPYIED_FILE=" "
+                    break;
                 ;;
                 "reload")
                     break
@@ -74,22 +83,22 @@ do
                         if [[ ${COPYIED_FILE} == "."* ]] || [[ ${COPYIED_FILE} == "~"* ]];then
                             green "'ln' don't support ./ or ~/"
                         else
-                            ln -s ${COPYIED_FILE} ${command:9}
+                            ln -s "${COPYIED_FILE} ${command:9}"
                             break;
                         fi
                     fi
                 ;;
                 "sh "*)
-                    zsh -c ${command:3}
+                    zsh -c "${command:3}"
                 ;;
                 "rm "*)
-                    echo -n "${GREEN}Will delete '${command:3}' permanently. Really want to remove it? [Y/any other key] ${C_DEFALUT}"
+                    echo -n "${GREEN}Will delete '${command:3}' permanently. Really want to remove it? [y/?] ${C_DEFALUT}"
                     read answer
-                    if [ ${answer} = "Y" ];then
-                        if [ -d ${command:3} ];then
-                            rm -r ${command:3}
+                    if [ "${answer}" = "y" ];then
+                        if [ -d "${command:3}" ];then
+                            rm -r "${command:3}"
                         else
-                            rm ${command:3}
+                            rm "${command:3}"
                         fi
                     fi
                     unset answer
@@ -105,6 +114,7 @@ do
                             copy ${COPYIED_FILE} $(basename ${COPYIED_FILE})
                         fi
                     fi
+                    break
                 ;;
                 "paste "*)
                     if [ ${COPYIED_FILE} = " " ];then
@@ -116,6 +126,7 @@ do
                             copy ${COPYIED_FILE} ${command:6}
                         fi
                     fi
+                    break
                 ;;
                 *)
                     green "Command not support: '${command}'"
@@ -123,11 +134,9 @@ do
             esac
             ###########################################
         else
-            cd ${operation}
-            if [ $? = 0 ];then
-                break
-            fi
+            cd "${operation}" && break
+            
         fi
-        clear
     done
+    echo "\e[H\e[J"
 done
