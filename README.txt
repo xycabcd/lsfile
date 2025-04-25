@@ -1,5 +1,3 @@
-English verison
-
 lsfile - A light macOS command line file look up/management tool
 
 This project is for make look and change files in folders easier.
